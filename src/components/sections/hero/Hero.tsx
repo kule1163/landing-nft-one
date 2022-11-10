@@ -48,6 +48,7 @@ const Hero = () => {
                 opacity: 1,
                 transition: { duration: 1 },
               }}
+              viewport={{ once: true }}
             >
               <div className="flex nmd:flex-col nmd:items-center nlg:justify-center gap-y-7 gap-x-[3rem]">
                 {featuresItems.map((item) => (
