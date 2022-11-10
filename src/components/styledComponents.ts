@@ -53,6 +53,7 @@ export const Logo = styled.a`
   font-weight: 800;
   position: relative;
   cursor: pointer;
+  width: fit-content;
   &:after {
     content: "";
     width: 100%;
