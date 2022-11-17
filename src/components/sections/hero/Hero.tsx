@@ -34,7 +34,7 @@ const Spline = lazy(() => import("@splinetool/react-spline"));
 
 function Box(props: any) {
   // This reference will give us direct access to the mesh
-  const mesh = useRef<THREE.Mesh>();
+  const mesh = useRef<THREE.Mesh>(null!);
 
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false);
