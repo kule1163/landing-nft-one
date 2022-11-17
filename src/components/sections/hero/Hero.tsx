@@ -3,12 +3,72 @@ import { motion } from "framer-motion";
 import { v4 as uuidV4 } from "uuid";
 import { useGlobalStore } from "../../../store/useGlobalStore";
 /* import Spline from "@splinetool/react-spline";
- */ import { lazy, Suspense } from "react";
+ */ import { lazy, Suspense, memo, useRef, useState } from "react";
+import useSpline from "@splinetool/r3f-spline";
+import { Canvas, useFrame } from "@react-three/fiber";
+
+/* function Box(props:any) {
+  // This reference will give us direct access to the mesh
+  const mesh = useRef()
+  // Set up state for the hovered and active state
+  const [hovered, setHover] = useState(false)
+  const [active, setActive] = useState(false)
+  // Subscribe this component to the render-loop, rotate the mesh every frame
+  useFrame((state, delta) => (mesh.current.rotation.x += 0.01))
+  // Return view, these are regular three.js elements expressed in JSX
+  return (
+    <mesh
+      {...props}
+      ref={mesh}
+      scale={active ? 1.5 : 1}
+      onClick={(event) => setActive(!active)}
+      onPointerOver={(event) => setHover(true)}
+      onPointerOut={(event) => setHover(false)}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+    </mesh>
+  )
+} */
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
+function Box(props: any) {
+  // This reference will give us direct access to the mesh
+  const mesh = useRef<THREE.Mesh>();
+
+  // Set up state for the hovered and active state
+  const [hovered, setHover] = useState(false);
+  const [active, setActive] = useState(false);
+
+  // Rotate mesh every frame, this is outside of React without overhead
+  useFrame(() => (mesh.current.rotation.x += 0.01));
+
+  return (
+    <mesh
+      {...props}
+      ref={mesh}
+      scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
+      onClick={(e) => setActive(!active)}
+      onPointerOver={(e) => setHover(true)}
+      onPointerOut={(e) => setHover(false)}
+    >
+      <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+      <meshStandardMaterial
+        attach="material"
+        color={hovered ? "hotpink" : "orange"}
+      />
+    </mesh>
+  );
+}
+
 const Hero = () => {
   const { setSplineLoaded } = useGlobalStore();
+
+  const mesh = useRef<THREE.Mesh>(null);
+
+  /*  const { nodes, materials } = useSpline(
+    "https://prod.spline.design/iqQ0CixTM5zzXUmN/scene.splinecode"
+  ); */
 
   return (
     <HeroCont className="relative flex items-center justify-center w-full bg-tertiary">
@@ -70,19 +130,25 @@ const Hero = () => {
           </div>
         </div>
         <div className="flex justify-center w-full overflow-hidden nlg:py-10">
-          <Suspense>
+          {/*  <Suspense>
             <Spline
               onLoad={(e) => setSplineLoaded(true)}
               scene="https://prod.spline.design/iqQ0CixTM5zzXUmN/scene.splinecode"
             />
-          </Suspense>
+          </Suspense> */}
+          <Canvas>
+            <ambientLight />
+            <pointLight position={[10, 10, 10]} />
+            <Box position={[-1.2, 0, 0]} />
+            <Box position={[1.2, 0, 0]} />
+          </Canvas>
         </div>
       </div>
     </HeroCont>
   );
 };
 
-export default Hero;
+export default memo(Hero);
 
 interface FeaturesItem {
   id: string;
