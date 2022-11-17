@@ -2,7 +2,10 @@ import { HeroCont, PrimaryButton } from "../../styledComponents";
 import { motion } from "framer-motion";
 import { v4 as uuidV4 } from "uuid";
 import { useGlobalStore } from "../../../store/useGlobalStore";
-import Spline from "@splinetool/react-spline";
+/* import Spline from "@splinetool/react-spline";
+ */ import { lazy, Suspense } from "react";
+
+const Spline = lazy(() => import("@splinetool/react-spline"));
 
 const Hero = () => {
   const { setSplineLoaded } = useGlobalStore();
@@ -66,12 +69,14 @@ const Hero = () => {
             </motion.div>
           </div>
         </div>
-        {/* <div className="flex justify-center w-full overflow-hidden nlg:py-10">
-          <Spline
-            onLoad={(e) => setSplineLoaded(true)}
-            scene="https://prod.spline.design/iqQ0CixTM5zzXUmN/scene.splinecode"
-          />
-        </div> */}
+        <div className="flex justify-center w-full overflow-hidden nlg:py-10">
+          <Suspense>
+            <Spline
+              onLoad={(e) => setSplineLoaded(true)}
+              scene="https://prod.spline.design/iqQ0CixTM5zzXUmN/scene.splinecode"
+            />
+          </Suspense>
+        </div>
       </div>
     </HeroCont>
   );
