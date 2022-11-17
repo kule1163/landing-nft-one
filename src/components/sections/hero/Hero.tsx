@@ -66,12 +66,12 @@ const Hero = () => {
             </motion.div>
           </div>
         </div>
-        <div className="flex justify-center w-full overflow-hidden nlg:py-10">
+        {/* <div className="flex justify-center w-full overflow-hidden nlg:py-10">
           <Spline
             onLoad={(e) => setSplineLoaded(true)}
             scene="https://prod.spline.design/iqQ0CixTM5zzXUmN/scene.splinecode"
           />
-        </div>
+        </div> */}
       </div>
     </HeroCont>
   );

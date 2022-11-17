@@ -6,7 +6,7 @@ interface GlobalStore {
 }
 
 export const useGlobalStore = create<GlobalStore>()((set) => ({
-  splineLoaded: false,
+  splineLoaded: true,
   setSplineLoaded: (payload: boolean) =>
     set((state) => ({ splineLoaded: payload })),
 }));
