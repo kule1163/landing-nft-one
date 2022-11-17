@@ -43,8 +43,8 @@ const Explore = () => {
   return (
     <Container id="explore" className="flex flex-col w-full">
       <Parallax>
-        <div className="flex items-center nmd:flex-col nmd:items-center gap-y-7 justify-between w-full mb-7">
-          <p className="text-h2 w-fit text-center ">Hot Drops</p>
+        <div className="flex items-center justify-between w-full nmd:flex-col nmd:items-center gap-y-7 mb-7">
+          <p className="text-center text-h2 w-fit ">Hot Drops</p>
           <SecondaryButton buttonStyle="outlined">view more</SecondaryButton>
         </div>
       </Parallax>

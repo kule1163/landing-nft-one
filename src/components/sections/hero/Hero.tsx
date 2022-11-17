@@ -1,12 +1,14 @@
 import { HeroCont, PrimaryButton } from "../../styledComponents";
 import { motion } from "framer-motion";
 import { v4 as uuidV4 } from "uuid";
-import { lazy, Suspense } from "react";
-const Spline = lazy(() => import("@splinetool/react-spline"));
+import { useGlobalStore } from "../../../store/useGlobalStore";
+import Spline from "@splinetool/react-spline";
 
 const Hero = () => {
+  const { setSplineLoaded } = useGlobalStore();
+
   return (
-    <HeroCont className="w-full flex justify-center items-center relative bg-tertiary">
+    <HeroCont className="relative flex items-center justify-center w-full bg-tertiary">
       <div className="relative flex w-full overflow-hidden nlg:flex-col">
         <div className="flex self-center w-full nlg:justify-center all-child:text-primary">
           <div className="flex flex-col gap-3 overflow-hidden nlg:child:text-center nlg:child:justify-center">
@@ -65,9 +67,10 @@ const Hero = () => {
           </div>
         </div>
         <div className="flex justify-center w-full overflow-hidden nlg:py-10">
-          <Suspense fallback={<div>Loading...</div>}>
-            <Spline scene="https://prod.spline.design/iqQ0CixTM5zzXUmN/scene.splinecode" />
-          </Suspense>
+          <Spline
+            onLoad={(e) => setSplineLoaded(true)}
+            scene="https://prod.spline.design/iqQ0CixTM5zzXUmN/scene.splinecode"
+          />
         </div>
       </div>
     </HeroCont>
